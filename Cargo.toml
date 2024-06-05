@@ -1,0 +1,26 @@
+[package]
+name = "snafu-stack-error"
+version.workspace = true
+edition.workspace = true
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = ["stack-error-derive"]
+
+[dependencies]
+strum = { workspace = true }
+strum_macros = { workspace = true }
+stack-error-derive = { path = "stack-error-derive" }
+
+[dev-dependencies]
+snafu = "0.8"
+
+[workspace.dependencies]
+syn = "2"
+quote = "1"
+proc-macro2 = "1"
+strum = "0"
+strum_macros = "0"

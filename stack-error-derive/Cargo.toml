@@ -1,0 +1,12 @@
+[package]
+name = "stack-error-derive"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = { workspace = true }
+proc-macro2 = { workspace = true }
+syn = { workspace = true, features = ["full", "extra-traits"] }
