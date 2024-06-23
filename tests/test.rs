@@ -21,7 +21,7 @@ enum MyError {
 #[derive(Snafu)]
 #[snafu(visibility(pub))]
 #[stack_trace_debug]
-enum TestError {
+enum TestError<const N: usize> {
     #[snafu(display("this has io error2"))]
     Invalid {
         source: MyError,
@@ -35,16 +35,16 @@ enum TestError {
     },
 }
 
-type Result<T> = std::result::Result<T, TestError>;
+type Result<T> = std::result::Result<T, TestError<1>>;
 
 #[test]
 fn test() -> Result<()> {
     let path = "config.toml";
     // let r = fs::read(path).context(IOSnafu { location: location!() })
     //     .context(InvalidSnafu);
-    let error: TestError = InvalidDatabaseOptionSnafu { key: String::from("Alice"), location: location!() }.build();
+    let error: TestError<1> = InvalidDatabaseOptionSnafu { key: String::from("Alice"), location: location!() }.build();
     // let a = error.last();
-    let a = <TestError as StackError>::last(&error);
+    let a = <TestError<1> as StackError>::last(&error);
     println!("{}", a);
     Ok(())
     // ensure!(false, InvalidDatabaseOptionSnafu { key: String::from("Alice"), location: location!()});
